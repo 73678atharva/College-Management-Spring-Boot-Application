@@ -6,6 +6,7 @@ import java.util.List;
 import com.app.entity.Course;
 import com.app.entity.Teacher;
 import com.app.entity.TeacherDTO;
+import com.app.entity.UserDTO;
 import com.app.entity.CourseDTO;
 public class TeacherMapper {
 
@@ -24,6 +25,15 @@ public class TeacherMapper {
 			}
 		}
 		teacherDTO.setCourses(coursesToBeSaved);
+		
+		if(teacher.getUser() != null) {
+			UserDTO userDTO = new UserDTO();
+			userDTO.setId(teacher.getUser().getId());
+			userDTO.setUsername(teacher.getUser().getUsername());
+			userDTO.setPassword(teacher.getUser().getPassword());
+			
+			teacherDTO.setUser(userDTO);
+		}
 		return teacherDTO;
 	}
 	

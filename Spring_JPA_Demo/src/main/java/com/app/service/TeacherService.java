@@ -7,9 +7,9 @@ public interface TeacherService {
 
 	public String createTeacher(Teacher teacher);
 	
-	public TeacherDTO getSingleTeacher(String id);
+	public TeacherDTO getCurrentTeacherDetails(String userName);
 	
-	public String deleteTeacher(String id);
+	public String deleteTeacher(String userName);
 	
 	public TeacherDTO updateTeacher(Teacher teacher);
 }

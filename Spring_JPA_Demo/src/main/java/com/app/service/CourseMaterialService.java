@@ -8,4 +8,6 @@ public interface CourseMaterialService {
 	public CourseMaterialDTO createCourseMaterial(CourseMaterial courseMaterial);
 	
 	public CourseMaterialDTO getCourseById(long id);
+	
+	public String deleteCourseMaterial(long id);
 }

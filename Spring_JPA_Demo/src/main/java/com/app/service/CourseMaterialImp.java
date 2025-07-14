@@ -37,6 +37,14 @@ public class CourseMaterialImp implements CourseMaterialService{
 			throw new CustomException("Course Material with id: "+ id + " not Found!!!", HttpStatus.NOT_FOUND);
 		return CourseMaterialMapper.convertCourseMaterialToCourseMaterialDTO(existingCourseMaterial.get());
 	}
-	
-	
+
+
+	@Transactional
+	@Override
+	public String deleteCourseMaterial(long id) {
+		if(!courseMaterialRepository.existsById(id))
+			throw new CustomException("Course Materila with id: "+ id + "Not Found!!!", HttpStatus.NOT_FOUND);
+		courseMaterialRepository.deleteById(id);
+		return "Course Material Deleted SuccessFully!!!!";
+	}
 }

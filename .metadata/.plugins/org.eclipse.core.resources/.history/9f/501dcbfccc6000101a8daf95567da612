@@ -1,0 +1,117 @@
+package com.app.service;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import com.app.entity.Course;
+import com.app.entity.Teacher;
+import com.app.entity.TeacherDTO;
+import com.app.entity.User;
+import com.app.exception.CustomException;
+import com.app.mapper.TeacherMapper;
+import com.app.repository.CourseRepository;
+import com.app.repository.TeacherRepository;
+
+@Service
+public class TeacherServiceImp implements TeacherService {
+
+	@Autowired
+	private TeacherRepository teacherRepository;
+
+	@Autowired
+	private CourseRepository  courseRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	
+	private Teacher findSinglTeacherByid(long id) {
+		Optional<Teacher> exisitingTeacher = teacherRepository.findById(id);
+		if (exisitingTeacher.isEmpty())
+			throw new CustomException("Teacher with id: " + id + " not found!!!", HttpStatus.NOT_FOUND);
+		return exisitingTeacher.get();
+	}
+
+	@Override
+	public String createTeacher(Teacher teacher) {
+		Teacher existingTeacher = teacherRepository.findByFirstName(teacher.getFirstName());
+		if (existingTeacher != null)
+			throw new CustomException("Teacher ALready Exist!!", HttpStatus.CONFLICT);
+		
+		for(Course course : teacher.getCourses()) {
+			Course existingCourse = courseRepository.findByCourseName(course.getCourseName());
+			if(existingCourse == null)
+				throw new CustomException("Course with name: "+ course.getCourseName() + " not found!!!",  HttpStatus.NOT_FOUND);
+			
+			existingCourse.setTeacher(teacher);
+		}
+		
+		User user = new User();
+		user.setUsername(teacher.getUser().getUsername());
+		user.setPassword(bCryptPasswordEncoder.encode(teacher.getUser().getPassword()));
+		user.setRoles(String.join(",", Arrays.asList("USER", "TEACHER")));
+		
+		teacher.setUser(user);
+		teacherRepository.save(teacher);
+		return "Teacher Registered Sucessfull!!!";
+	}
+
+	@Override
+	public TeacherDTO getSingleTeacher(String id) {
+		Teacher existingTeacher = findSinglTeacherByid(Long.parseLong(id));
+		return TeacherMapper.convertTeacherToTeacherDTO(existingTeacher);
+	}
+
+	@Override
+	public String deleteTeacher(String id) {
+		if (id.isBlank())
+			throw new CustomException("Teacher id cannot be empty!!", HttpStatus.NOT_ACCEPTABLE);
+
+		Teacher exisitingTeacher = findSinglTeacherByid(Long.parseLong(id));
+		List<Course> teacherCourses = exisitingTeacher.getCourses();
+		if (!teacherCourses.isEmpty()) {
+			for (Course course : teacherCourses)
+				course.setTeacher(null);
+		}
+		teacherRepository.delete(exisitingTeacher);
+		return "Teacher Deleted Successfull!!";
+	}
+
+	@Override
+	public TeacherDTO updateTeacher(Teacher teacher) {
+		Teacher exisitingTeacher = findSinglTeacherByid(teacher.getId());
+		exisitingTeacher.setFirstName(teacher.getFirstName());
+		exisitingTeacher.setLastName(teacher.getLastName());
+
+		List<Course> updatedCourses = new ArrayList<>();
+		
+			for(Course incomingCourses : teacher.getCourses()){
+				if(incomingCourses.getId() > 0) {
+					Optional<Course> optionalCourse = courseRepository.findById(incomingCourses.getId());
+					if(optionalCourse.isPresent()) {
+						Course existingCourse = optionalCourse.get();
+						if(existingCourse.getTeacher().getId() == exisitingTeacher.getId())
+							throw new CustomException("Course does not belong to the teacher", HttpStatus.CONFLICT);
+						existingCourse.setCourseName(incomingCourses.getCourseName());
+						existingCourse.setCredit(incomingCourses.getCredit());
+						existingCourse.setTeacher(exisitingTeacher);
+						
+						
+						updatedCourses.add(existingCourse);
+					}
+				}else {
+						incomingCourses.setTeacher(exisitingTeacher);
+						updatedCourses.add(incomingCourses);	
+				}
+			}
+			exisitingTeacher.setCourses(updatedCourses);
+		TeacherDTO updatedTeacher = TeacherMapper.convertTeacherToTeacherDTO(teacherRepository.save(exisitingTeacher));
+		return updatedTeacher;
+	}
+}

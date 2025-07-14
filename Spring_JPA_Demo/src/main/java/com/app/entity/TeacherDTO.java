@@ -5,12 +5,14 @@ import java.util.List;
 public class TeacherDTO {
 
 	private long id;
-	
+
 	private String firstName;
-	
+
 	private String lastName;
-	
+
 	private List<CourseDTO> courses;
+
+	private UserDTO user;
 
 	public long getId() {
 		return id;
@@ -42,5 +44,13 @@ public class TeacherDTO {
 
 	public void setCourses(List<CourseDTO> courses) {
 		this.courses = courses;
+	}
+
+	public UserDTO getUser() {
+		return user;
+	}
+
+	public void setUser(UserDTO user) {
+		this.user = user;
 	}
 }
