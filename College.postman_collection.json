@@ -1,0 +1,768 @@
+{
+	"info": {
+		"_postman_id": "dc220a3b-4f27-4cba-810b-8aff0ab3ba99",
+		"name": "College",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31560012"
+	},
+	"item": [
+		{
+			"name": "Course Material",
+			"item": [
+				{
+					"name": "Create Course Material",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIsQURNSU4iLCJzdWIiOiJydXRpa2EiLCJpYXQiOjE3NTI1MTA2NDIsImV4cCI6MTc1MjUxNDI0Mn0.S_Yb50giNbuY34hISNE8N1PAtbkHbpIp4cXg6tfeqYo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courseMaterialName\" : \"java\",\r\n    \"url\" : \"def\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/courseMaterial/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"courseMaterial",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Course Material",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhamF5IiwiaWF0IjoxNzUxODU3MTU2LCJleHAiOjE3NTE4NjA3NTZ9.YPO1sVdiioNtfOP84qzQ27nviKw8ORZ0umYjYouq2S8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/courseMaterial/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"courseMaterial",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course Material",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhamF5IiwiaWF0IjoxNzUxODU3MTU2LCJleHAiOjE3NTE4NjA3NTZ9.YPO1sVdiioNtfOP84qzQ27nviKw8ORZ0umYjYouq2S8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/courseMaterial/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"courseMaterial",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Course Material",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIsQURNSU4iLCJzdWIiOiJydXRpa2EiLCJpYXQiOjE3NTI1MTYyMTQsImV4cCI6MTc1MjUxOTgxNH0.3j9dSaCGDbtLG0WDlfrr_wFdKOmQWHF1nzhVBbdCHn4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/courseMaterial/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"courseMaterial",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Course",
+			"item": [
+				{
+					"name": "Create Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIsQURNSU4iLCJzdWIiOiJydXRpa2EiLCJpYXQiOjE3NTIwNTI4NjcsImV4cCI6MTc1MjA1NjQ2N30.TNKiRbz9woVVtTP1WG7JhGTTqoBnKoDqUIgrlvhJzXg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courseName\" : \"PG-DAC\",\r\n    \"credit\" : \"90\",\r\n    \"courseMaterial\" : {\r\n        \"courseMaterialName\" : \"c++\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/course/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"course",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Course",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIsQURNSU4iLCJzdWIiOiJydXRpa2EiLCJpYXQiOjE3NTIwNDg2NDQsImV4cCI6MTc1MjA1MjI0NH0.G8P9jJCNwKuTR4kP51wl3pXRoOeAKIvvF8scvCVpXds",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/course/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"course",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "Delete Student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhamF5IiwiaWF0IjoxNzUxODc2NzkzLCJleHAiOjE3NTE4ODAzOTN9.VowBXBRXAUf3DUFH3qSrxxhmXP8xQikBUId8utej04g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/student",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current Student Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIsU1RVREVOVCIsInN1YiI6ImthcmFuIiwiaWF0IjoxNzUyMDU5NzcwLCJleHAiOjE3NTIwNjMzNzB9.dKiJbvNEsJ1xY4kQHxEGW_zWLlKRAb9WNBXuB3f-vGg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/student/currentStudent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"currentStudent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Current Student Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIsU1RVREVOVCIsInN1YiI6ImthcmFuIiwiaWF0IjoxNzUyMDU5NzcwLCJleHAiOjE3NTIwNjMzNzB9.dKiJbvNEsJ1xY4kQHxEGW_zWLlKRAb9WNBXuB3f-vGg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"username\": \"karan\",\r\n        \"password\": \"wadhwa\"\r\n    },\r\n    \"firstName\": \"Karan\",\r\n    \"lastName\": \"Wadhwa\",\r\n    \"courses\": [\r\n        {\r\n            \"courseName\": \"PG-DMI\"\r\n        },\r\n\r\n        {\r\n            \"courseName\" : \"PG-DAC\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/student/currentStudent/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"student",
+								"currentStudent",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teacher",
+			"item": [
+				{
+					"name": "Get Single Teacher",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIsVEVBQ0hFUiIsInN1YiI6ImF0aGFydmEiLCJpYXQiOjE3NTI1MTU5OTQsImV4cCI6MTc1MjUxOTU5NH0.qth9b3I2SJA3MooOKWjMX296RRcX-7dUHvDvxYf9vcA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/teacher/details",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"teacher",
+								"details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Teacher",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIsVEVBQ0hFUiIsInN1YiI6ImF0aGFydmEiLCJpYXQiOjE3NTI1MDk3ODcsImV4cCI6MTc1MjUxMzM4N30.B2c9OYnU3xc7kZVXY0cRO9KTzK6JzZqnr5i6t0IMJ3k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"username\": \"atharva\",\r\n        \"password\": \"atharva\"\r\n    },\r\n    \"firstName\": \"Atharva\",\r\n    \"lastName\": \"khamkar\",\r\n    \"courses\": [\r\n        {\r\n            \"courseName\": \"PG-DMI\"\r\n        },\r\n        {\r\n            \"courseName\" : \"PG-DAC\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/teacher/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"teacher",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Teacher",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIsVEVBQ0hFUiIsInN1YiI6ImF0aGFydmEiLCJpYXQiOjE3NTI1MTU5OTQsImV4cCI6MTc1MjUxOTU5NH0.qth9b3I2SJA3MooOKWjMX296RRcX-7dUHvDvxYf9vcA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/teacher/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"teacher",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register Teacher",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\" : {\r\n        \"username\"  : \"atharva\",\r\n        \"password\" : \"ark\"\r\n    },\r\n    \"firstName\" : \"Atharva\",\r\n    \"lastName\" : \"khamkar\",\r\n    \"courses\" : [{\r\n        \"courseName\" : \"PG-DMI\"\r\n    }]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/register/teacher",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"register",
+								"teacher"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Student",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"username\": \"karan\",\r\n        \"password\": \"karan\"\r\n    },\r\n    \"firstName\": \"Karan\",\r\n    \"lastName\": \"Wadhwa\",\r\n    \"courses\": [\r\n        {\r\n            \"courseName\": \"PG-DMI\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/register/student",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"register",
+								"student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"karan\",\r\n    \"password\": \"wadhwa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Teacher",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"atharva\",\r\n    \"password\": \"atharva\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Register Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIsVEVBQ0hFUiIsInN1YiI6ImF0aGFydmEiLCJpYXQiOjE3NTIwNDMxMzMsImV4cCI6MTc1MjA0NjczM30.TckfAScMybgabgiTRMARKCJQC8FpJJSBXLQhTvhtsMs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"username\": \"rutika\",\r\n        \"password\": \"ark\"\r\n    },\r\n    \"firstName\": \"Rutika\",\r\n    \"lastName\": \"Harpude\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/register/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current Admin Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIsQURNSU4iLCJzdWIiOiJydXRpa2EiLCJpYXQiOjE3NTIwNTA2MDUsImV4cCI6MTc1MjA1NDIwNX0.xRYZfyxY0qK91LOT1Xoud_2mm4tHTUz4GKczXOFmlFo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/currentAdmin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"currentAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Current Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIsQURNSU4iLCJzdWIiOiJydXRpa2EiLCJpYXQiOjE3NTIwNTAzMjEsImV4cCI6MTc1MjA1MzkyMX0.e3WdU2xyL5peDHkWAccBM8z_n4KPAHBNseue6QST-xI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"username\": \"rutika\",\r\n        \"password\": \"abc\"\r\n    },\r\n    \"firstName\": \"Rutika\",\r\n    \"lastName\": \"khamkar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/currentAdmin/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"currentAdmin",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Admin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"rutika\",\r\n    \"password\": \"abc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/login/admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"login",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
