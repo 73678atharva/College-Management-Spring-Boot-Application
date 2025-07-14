@@ -1,0 +1,11 @@
+package com.app.service;
+
+import com.app.entity.Admin;
+import com.app.entity.AdminDTO;
+
+public interface AdminService {
+
+	public String registerAdmin(Admin admin);
+	
+	public AdminDTO loginAdmin(Admin admin);
+}

@@ -1,0 +1,95 @@
+package com.app.service;
+
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.app.config.JwtService;
+import com.app.entity.Admin;
+import com.app.entity.AdminDTO;
+import com.app.entity.User;
+import com.app.entity.UserDTO;
+import com.app.exception.CustomException;
+import com.app.mapper.AdminMapper;
+import com.app.repository.AdminRepository;
+import com.app.repository.UserRepository;
+
+@Service
+public class AdminServiceImp implements AdminService {
+
+	@Autowired
+	private AdminRepository adminRepository;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private JwtService jwtService;
+
+	@Override
+	public String registerAdmin(Admin admin) {
+		Admin savedAdmin = adminRepository.findAdminByUserName(admin.getUser().getUsername());
+
+		if (savedAdmin != null)
+			throw new CustomException("Admin with name: " + admin.getFirstName() + " already Exist!!!",
+					HttpStatus.CONFLICT);
+
+		User user = new User();
+		user.setUsername(admin.getUser().getUsername());
+		user.setPassword(bCryptPasswordEncoder.encode(admin.getUser().getPassword()));
+		user.setRoles(String.join(",", Arrays.asList("USER", "ADMIN")));
+
+		admin.setUser(user);
+		Admin a = adminRepository.save(admin);
+		if (a == null)
+			throw new CustomException("Admin not registered!!!", HttpStatus.NOT_ACCEPTABLE);
+		return "Admin Registered Successfully!!!";
+	}
+
+	@Override
+	public String loginAdmin(User user) {
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+
+		String token = null;
+		userRepository.findByUsername(user.getUsername());
+		if (authentication.isAuthenticated())
+			token = jwtService.generateToken(userRepository.findByUsername(user.getUsername()));
+
+		return token;
+	}
+
+	@Override
+	public AdminDTO getCurrentAdminDetials(String adminUserName) {
+		AdminDTO existingAdmin= AdminMapper.converAdminToAdminDTO(adminRepository.findAdminByUserName(adminUserName));
+		if(existingAdmin == null)
+			throw new CustomException("Admin with userName: "+ adminUserName + " not Found: ", HttpStatus.NOT_FOUND);
+		return existingAdmin;
+	}
+
+	@Override
+	public Admin updateCurrentAdminDetails(Admin admin) {
+	Admin updatedAdmin = new Admin();
+	updatedAdmin.setFirstName(admin.getFirstName());
+	updatedAdmin.setLastName(admin.getLastName());
+	
+	if(admin.getUser() != null) {
+		UserDTO updatedUser = newUserDTO ();
+		updatedUser.setUsername(null);
+	}
+		
+		return null;
+	}
+}

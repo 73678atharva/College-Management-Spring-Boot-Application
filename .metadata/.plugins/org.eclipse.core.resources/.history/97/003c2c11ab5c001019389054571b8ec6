@@ -1,0 +1,123 @@
+package com.app.service;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.app.entity.Course;
+import com.app.entity.Student;
+import com.app.entity.StudentDTO;
+import com.app.entity.User;
+import com.app.entity.UserDTO;
+import com.app.exception.CustomException;
+import com.app.mapper.StudentMapper;
+import com.app.mapper.UserMapper;
+import com.app.repository.CourseRepository;
+import com.app.repository.StudentRepository;
+
+@Service
+public class StudentServiceImp implements StudentService {
+
+	@Autowired
+	private StudentRepository studentRepository;
+
+	@Autowired
+	private CourseRepository courseRepository;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Override
+	public String createStudent(Student student) {
+		Student existingStudent = studentRepository.findByFirstName(student.getFirstName());
+		if (existingStudent != null) {
+			throw new CustomException("Student with name " + student.getFirstName() + " already exists",
+					HttpStatus.CONFLICT);
+		}
+
+		List<Course> resolvedCourses = new ArrayList<>();
+
+		for (Course course : student.getCourses()) {
+			Course existingCourse = courseRepository.findByCourseName(course.getCourseName());
+
+			if (existingCourse != null) {
+				resolvedCourses.add(existingCourse);
+			}
+		}
+
+		student.setCourses(resolvedCourses);
+
+		User user = new User();
+		user.setUsername(student.getUser().getUsername());
+		user.setPassword(bCryptPasswordEncoder.encode(student.getUser().getPassword()));
+		user.setRoles(String.join(",", Arrays.asList("USER", "STUDENT")));
+		student.setUser(user);
+		studentRepository.save(student);
+		return "Student Registerd successfull!!!";
+	}
+
+	@Override
+	public StudentDTO findCurrentStudentDetails(String userName) {
+		Student existingStudent = studentRepository.findStudentByUserName(userName);
+		if (existingStudent == null)
+			throw new CustomException("Student with user name: " + userName + " not found", HttpStatus.NOT_FOUND);
+		return StudentMapper.mapToStudentDTO(existingStudent);
+	}
+
+	@Override
+	public String deleteStudent() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userName = authentication.getName();
+		Student student = studentRepository.findStudentByUserName(userName);
+		if (student == null) {
+			throw new CustomException("Student record not found for authenticated user!!", HttpStatus.NOT_FOUND);
+		}
+		studentRepository.delete(student);
+		return "Student deleted Successfully!!";
+	}
+
+	@Override
+	public StudentDTO updateCurrentStudentDetails(Student student) {
+		Student existingStudent = studentRepository.findStudentByUserName(student.getUser().getUsername());
+
+		existingStudent.setFirstName(student.getFirstName());
+		existingStudent.setLastName(student.getLastName());
+
+		List<Course> studentUpdatedCourses = new ArrayList<>();
+		if (student.getCourses() != null) {
+			for (Course course : student.getCourses()) {
+				Course existingCourse = courseRepository.findByCourseName(course.getCourseName());
+				studentUpdatedCourses.add(existingCourse);
+			}
+			existingStudent.setCourses(studentUpdatedCourses);
+		}
+		
+		if(student.getUser() != null) {
+			UserDTO existingStudentUser = UserMapper.convertUserToUserDTO(existingStudent.getUser());
+			//existingStudentUser.setId(student.getUser().getId());
+			
+			existingStudentUser.setUsername(student.getUser().getUsername());
+			
+			// checking if the password is updated then only we have to encode it again
+			String incomingPassword = student.getUser().getPassword();
+			if(!incomingPassword.isEmpty() && incomingPassword != null) {
+				if(!bCryptPasswordEncoder.matches(incomingPassword, existingStudent.getUser().getPassword()))
+					existingStudentUser.setPassword(bCryptPasswordEncoder.encode(incomingPassword));
+				else
+					existingStudentUser.setPassword(existingStudent.getUser().getPassword());
+			}
+
+			existingStudent.setUser(UserMapper.convertUserDTOtoUser(existingStudentUser));
+		}
+		
+		studentRepository.save(existingStudent);
+		return StudentMapper.mapToStudentDTO(existingStudent);
+	}
+}

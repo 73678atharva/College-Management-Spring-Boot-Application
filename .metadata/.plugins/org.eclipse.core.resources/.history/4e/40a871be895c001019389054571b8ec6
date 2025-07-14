@@ -1,0 +1,21 @@
+package com.app.mapper;
+
+import com.app.entity.Admin;
+import com.app.entity.AdminDTO;
+
+public class AdminMapper {
+
+	public static Admin convertAdminDtoToAdmin(AdminDTO adminDTO) {
+		Admin admin = new Admin();
+		admin.setFirstName(adminDTO.getFirstName());
+		admin.setLastName(adminDTO.getLastName());
+		return admin;
+	}
+	
+	public static AdminDTO converAdminToAdminDTO(Admin admin) {
+		AdminDTO adminDTO = new AdminDTO();
+		admin.setFirstName(adminDTO.getFirstName());
+		admin.setLastName(adminDTO.getLastName());
+		return adminDTO;
+	}
+}

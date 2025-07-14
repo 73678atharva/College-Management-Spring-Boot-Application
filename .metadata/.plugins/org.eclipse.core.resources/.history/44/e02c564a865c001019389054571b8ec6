@@ -1,0 +1,49 @@
+package com.app.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.app.entity.Admin;
+import com.app.entity.AdminDTO;
+import com.app.entity.User;
+import com.app.exception.CustomException;
+import com.app.repository.AdminRepository;
+
+import io.jsonwebtoken.lang.Arrays;
+
+@Service
+public class AdminServiceImp implements AdminService{
+
+	@Autowired
+	private AdminRepository adminRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Override
+	public String registerAdmin(Admin admin) {
+		Admin savedAdmin = adminRepository.findAdminByUserName(admin.getUser().getUsername());
+		
+		if(savedAdmin != null)
+			throw new CustomException("Admin with name: "+ admin.getFirstName() + " already Exist!!!", HttpStatus.CONFLICT);
+		
+		User user = new User();
+		user.setUsername(admin.getUser().getUsername());
+		user.setPassword(bCryptPasswordEncoder.encode(admin.getUser().getPassword()));
+		user.setRoles(Arrays.asList("USER","ADMIN"));
+		
+		return null;
+	}
+
+	@Override
+	public AdminDTO loginAdmin(Admin admin) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}

@@ -1,0 +1,42 @@
+package com.app.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.app.entity.StudentDTO;
+import com.app.repository.StudentRepository;
+import com.app.service.StudentService;
+
+@RestController
+@RequestMapping("/student")
+public class StudentController {
+
+	@Autowired
+	private StudentService studentService;
+	
+	@Autowired
+	private StudentRepository studentRepository;
+	
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getCurrentStudentDetails(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String UserName = authentication.getName();
+		
+		StudentDTO existingStudent = studentService.findById(id);
+		return ResponseEntity.status(HttpStatus.FOUND).body(existingStudent);
+	}
+
+	@DeleteMapping()
+	public ResponseEntity<?> deleteStudentById(){
+		String message = studentService.deleteStudent();
+		return ResponseEntity.status(HttpStatus.OK).body(message);
+	}
+}

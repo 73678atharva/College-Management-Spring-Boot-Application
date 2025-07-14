@@ -1,0 +1,22 @@
+package com.app.mapper;
+
+import com.app.entity.User;
+import com.app.entity.UserDTO;
+
+public class UserMapper {
+
+	public static UserDTO convertUserToUserDTO(User user) {
+		UserDTO userDTO = new UserDTO();
+		userDTO.setId(user.getId());
+		userDTO.setUsername(user.getUsername());
+		userDTO.setPassword(user.getPassword());
+		return userDTO;
+	}
+	
+	public static User convertUserDTOtoUser(UserDTO userDTO) {
+		User user = new User();
+		user.setUsername(userDTO.getUsername());
+		user.setPassword(userDTO.getPassword());
+		return user;
+	}
+}

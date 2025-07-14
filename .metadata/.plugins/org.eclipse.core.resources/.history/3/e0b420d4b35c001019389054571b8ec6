@@ -1,0 +1,54 @@
+package com.app.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.app.config.JwtService;
+import com.app.entity.User;
+import com.app.entity.UserDTO;
+import com.app.exception.CustomException;
+import com.app.mapper.UserMapper;
+import com.app.repository.UserRepository;
+
+@Service
+public class UserServiceImp implements UserService {
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private JwtService jwtService;
+	
+	@Override
+	public UserDTO createUser(User user) {
+		User existingUser = userRepository.findByUsername(user.getUsername());
+		if (existingUser != null)
+			throw new CustomException("User Already Exists!!!", HttpStatus.CONFLICT);
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		return UserMapper.convertUserToUserDTO(userRepository.save(user));
+	}
+
+	@Override
+	public String loginUser(User user) {
+		User existingUser = userRepository.findByUsername(user.getUsername());
+		Authentication authentication =  authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(existingUser.getUsername(), existingUser.getPassword())
+				);
+		String token = null;
+		if(authentication.isAuthenticated())
+			token = jwtService.generateToken(existingUser);
+		return token;
+	}
+
+}

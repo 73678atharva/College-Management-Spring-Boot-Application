@@ -1,0 +1,31 @@
+package com.app.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.app.entity.Admin;
+import com.app.entity.AdminDTO;
+import com.app.repository.AdminRepository;
+
+@Service
+public class AdminServiceImp implements AdminService{
+
+	@Autowired
+	private AdminRepository adminRepository;
+	
+	@Override
+	public String registerAdmin(Admin admin) {
+		Optional<Admin> savedAdmin = 
+		return null;
+	}
+
+	@Override
+	public AdminDTO loginAdmin(Admin admin) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}

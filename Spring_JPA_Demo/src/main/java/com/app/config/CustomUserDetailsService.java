@@ -1,0 +1,38 @@
+package com.app.config;
+
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
+
+import com.app.entity.User;
+import com.app.repository.UserRepository;
+
+@Component
+public class CustomUserDetailsService implements UserDetailsService {
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = userRepository.findByUsername(username);
+		if (Objects.isNull(user))
+			throw new UsernameNotFoundException("User Not Found with username : " + username + " !!");
+
+		return org.springframework.security.core.userdetails.User.builder().username(user.getUsername())
+				.password(user.getPassword()).authorities(
+		                Arrays.stream(user.getRoles().split(","))
+	                    .map(role -> new SimpleGrantedAuthority("ROLE_" + role.trim()))
+	                    .collect(Collectors.toList())
+	            )
+				.build();
+	}
+
+}
